@@ -197,9 +197,10 @@ html, body {
   flex: 1;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
-  padding: 24px 16px;
+  align-items: stretch;
+  justify-content: center;
+  padding: 60px 10px;
+  gap: 16px;
   min-height: 0;
 }
 
@@ -207,17 +208,17 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  width: 30vw;
 }
 
 .btn-group-row {
   display: flex;
   flex-direction: row;
   gap: 8px;
+  flex: 1;
 }
 
 .ctrl-btn {
-  width: clamp(80px, 18vw, 120px);
-  height: clamp(80px, 18vw, 120px);
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
@@ -228,7 +229,6 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
   transition: background 0.08s, border-color 0.08s;
 }
 
@@ -240,11 +240,14 @@ html, body {
 
 
 .btn-group-col .ctrl-btn {
-  height: clamp(110px, 25vw, 70px);
+  width: 100%;
+  flex: 1;
+  font-size: clamp(2rem, 5vw, 3rem);
 }
 
 .btn-group-row .ctrl-btn {
-  width: clamp(110px, 25vw, 170px);
+  flex: 1;
+  height: 100%;
 }
 .action-text {
   font-size: 0.6rem;
@@ -300,3 +303,17 @@ html, body {
 
 .ws-btn:active     { background: var(--pressed); }
 .ws-btn.disconnect { color: var(--p2); border-color: var(--p2); }
+
+/* ── Force landscape on portrait devices ── */
+@media screen and (orientation: portrait) {
+  body {
+    position: fixed;
+    width: 100vh;
+    height: 100vw;
+    top: calc(50vh - 50vw);
+    left: calc(50vw - 50vh);
+    transform: rotate(90deg);
+    transform-origin: center center;
+    overflow: hidden;
+  }
+}

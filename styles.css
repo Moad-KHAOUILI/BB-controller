@@ -1,0 +1,302 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:root {
+  --bg:      #0d1b2e;
+  --surface: #122338;
+  --border:  #1e3554;
+  --text:    #dce8f5;
+  --muted:   #4a6882;
+  --p1:      #3b82f6;
+  --p2:      #ef4444;
+  --pressed: #1a3050;
+
+  --radius-sm:  6px;
+  --radius-md:  8px;
+  --radius-lg:  12px;
+  --radius-xl:  16px;
+  --radius-2xl: 20px;
+}
+
+html {
+  zoom: 2;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Geist', 'Geist Sans', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
+  touch-action: none;
+}
+
+/* ── Screens ── */
+.screen {
+  display: none;
+  width: 100%;
+  height: 100%;
+}
+
+.screen.active {
+  display: flex;
+}
+
+/* ── Selection ── */
+#selection-screen {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  padding: 32px;
+}
+
+.brand {
+  text-align: center;
+}
+
+.brand h1 {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--text);
+}
+
+.brand p {
+  margin-top: 10px;
+  font-size: 0.65rem;
+  letter-spacing: 4px;
+  color: var(--muted);
+  text-transform: uppercase;
+  text-align: center;
+  font-family: 'Geist Mono', 'Geist_Mono', ui-monospace, monospace;
+}
+
+.player-grid {
+  display: flex;
+  gap: 14px;
+  width: 100%;
+  max-width: 380px;
+}
+
+.player-btn {
+  flex: 1;
+  padding: 36px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-2xl);
+  color: var(--text);
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  transition: background 0.15s;
+}
+
+.player-btn:active { background: var(--pressed); }
+.player-btn.p1 { border-color: var(--p1); }
+.player-btn.p2 { border-color: var(--p2); }
+
+.p-num {
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.player-btn.p1 .p-num { color: var(--p1); }
+.player-btn.p2 .p-num { color: var(--p2); }
+
+.p-label {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 4px;
+  color: var(--muted);
+  font-family: 'Geist Mono', 'Geist_Mono', ui-monospace, monospace;
+}
+
+/* ── Controller ── */
+#controller-screen {
+  flex-direction: column;
+}
+
+.ctrl-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  flex-shrink: 0;
+  min-height: 48px;
+}
+
+.back-btn {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--muted);
+  font-family: 'Geist Mono', 'Geist_Mono', ui-monospace, monospace;
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.back-btn:active { background: var(--pressed); }
+
+.player-tag {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 4px;
+}
+
+.conn-badge {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.conn-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--muted);
+  flex-shrink: 0;
+}
+
+.conn-dot.connected  { background: #22c55e; }
+.conn-dot.connecting { background: #eab308; animation: blink 0.9s ease-in-out infinite; }
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.15; }
+}
+
+.conn-text {
+  font-size: 0.62rem;
+  font-family: 'Geist Mono', 'Geist_Mono', ui-monospace, monospace;
+  letter-spacing: 2px;
+  color: var(--muted);
+}
+
+.ctrl-body {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 24px 16px;
+  min-height: 0;
+}
+
+.btn-group-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.btn-group-row {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.ctrl-btn {
+  width: clamp(80px, 18vw, 120px);
+  height: clamp(80px, 18vw, 120px);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  color: var(--text);
+  font-family: inherit;
+  font-size: clamp(1.4rem, 3.5vw, 2rem);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.08s, border-color 0.08s;
+}
+
+.ctrl-btn:active,
+.ctrl-btn.pressed {
+  background: var(--pressed);
+  border-color: var(--text);
+}
+
+
+.btn-group-col .ctrl-btn {
+  height: clamp(110px, 25vw, 70px);
+}
+
+.btn-group-row .ctrl-btn {
+  width: clamp(110px, 25vw, 170px);
+}
+.action-text {
+  font-size: 0.6rem;
+  font-weight: 500;
+  font-family: 'Geist Mono', 'Geist_Mono', ui-monospace, monospace;
+  letter-spacing: 5px;
+  color: var(--muted);
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.action-text.active { color: var(--text); }
+
+.ws-bar {
+  display: flex;
+  gap: 8px;
+  padding: 10px 16px;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  flex-shrink: 0;
+}
+
+.ws-input {
+  flex: 1;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text);
+  font-family: 'Geist Mono', 'Geist_Mono', ui-monospace, monospace;
+  font-size: 0.68rem;
+  padding: 8px 12px;
+  outline: none;
+  min-width: 0;
+  transition: border-color 0.15s;
+}
+
+.ws-input:focus { border-color: var(--muted); }
+
+.ws-btn {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text);
+  font-family: 'Geist Mono', 'Geist_Mono', ui-monospace, monospace;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  padding: 8px 16px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.1s;
+}
+
+.ws-btn:active     { background: var(--pressed); }
+.ws-btn.disconnect { color: var(--p2); border-color: var(--p2); }

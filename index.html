@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <title>BB Controller</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-mono/style.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="selection-screen" class="screen active">
+    <div class="brand">
+      <h1>Battle Bots</h1>
+      <h2>CONTROLLER</h2>
+      <p>Select player to continue</p>
+    </div>
+    <div class="player-grid">
+      <button class="player-btn p1" id="p1-btn">
+        <span class="p-num">01</span>
+        <span class="p-label">PLAYER 1</span>
+      </button>
+      <button class="player-btn p2" id="p2-btn">
+        <span class="p-num">02</span>
+        <span class="p-label">PLAYER 2</span>
+      </button>
+    </div>
+  </div>
+
+  <div id="controller-screen" class="screen">
+
+    <header class="ctrl-header">
+      <button class="back-btn" id="back-btn">BACK</button>
+      <span class="player-tag" id="player-tag"></span>
+    </header>
+
+    <main class="ctrl-body">
+
+      <div class="btn-group-col">
+        <button class="ctrl-btn" data-action="forward">&#8593;</button>
+        <button class="ctrl-btn" data-action="backward">&#8595;</button>
+      </div>
+
+      <div class="btn-group-row">
+        <button class="ctrl-btn" data-action="left">&#8592;</button>
+        <button class="ctrl-btn" data-action="right">&#8594;</button>
+      </div>
+
+    </main>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

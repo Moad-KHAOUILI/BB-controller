@@ -1,3 +1,6 @@
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js');
+}
 const selectionScreen  = document.getElementById('selection-screen');
 const controllerScreen = document.getElementById('controller-screen');
 const p1Btn            = document.getElementById('p1-btn');

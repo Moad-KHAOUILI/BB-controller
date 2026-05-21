@@ -62,24 +62,39 @@ function showSelection() {
   selectionScreen.classList.add('active');
 }
 
-// Control buttons
-document.querySelectorAll('.ctrl-btn').forEach(btn => {
-  function press(e) {
-    e.preventDefault();
-    btn.classList.add('pressed');
-    const action = ACTION_MAP[btn.dataset.action];
-    if (action) sendAction(action);
+// Control buttons — only one button active at a time; latter press wins; release sends STOP
+let activeBtn = null;
+
+const allCtrlBtns = document.querySelectorAll('.ctrl-btn');
+
+function pressBtn(btn, e) {
+  e.preventDefault();
+  // Deactivate previously active button without sending STOP (new press overrides)
+  if (activeBtn && activeBtn !== btn) {
+    activeBtn.classList.remove('pressed');
   }
-  function release(e) {
-    if (e) e.preventDefault();
+  activeBtn = btn;
+  btn.classList.add('pressed');
+  const action = ACTION_MAP[btn.dataset.action];
+  if (action) sendAction(action);
+}
+
+function releaseBtn(btn, e) {
+  if (e) e.preventDefault();
+  if (activeBtn === btn) {
     btn.classList.remove('pressed');
+    activeBtn = null;
+    sendAction('STOP');
   }
-  btn.addEventListener('touchstart',  press,   { passive: false });
-  btn.addEventListener('touchend',    release, { passive: false });
-  btn.addEventListener('touchcancel', release, { passive: false });
-  btn.addEventListener('mousedown',   press);
-  btn.addEventListener('mouseup',     release);
-  btn.addEventListener('mouseleave',  release);
+}
+
+allCtrlBtns.forEach(btn => {
+  btn.addEventListener('touchstart',  e => pressBtn(btn, e),   { passive: false });
+  btn.addEventListener('touchend',    e => releaseBtn(btn, e), { passive: false });
+  btn.addEventListener('touchcancel', e => releaseBtn(btn, e), { passive: false });
+  btn.addEventListener('mousedown',   e => pressBtn(btn, e));
+  btn.addEventListener('mouseup',     e => releaseBtn(btn, e));
+  btn.addEventListener('mouseleave',  e => releaseBtn(btn, e));
   btn.addEventListener('contextmenu', e => e.preventDefault());
 });
 

@@ -64,10 +64,14 @@ function showSelection() {
 
 // Control buttons
 document.querySelectorAll('.ctrl-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
+  btn.addEventListener('pointerdown', () => {
+    btn.classList.add('pressed');
     const action = ACTION_MAP[btn.dataset.action];
     if (action) sendAction(action);
   });
+  btn.addEventListener('pointerup',    () => btn.classList.remove('pressed'));
+  btn.addEventListener('pointercancel',() => btn.classList.remove('pressed'));
+  btn.addEventListener('pointerleave', () => btn.classList.remove('pressed'));
 });
 
 p1Btn.addEventListener('click', () => showController(1));

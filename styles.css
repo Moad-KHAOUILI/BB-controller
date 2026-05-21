@@ -199,7 +199,7 @@ html, body {
   flex-direction: row;
   align-items: stretch;
   justify-content: center;
-  padding: 60px 10px;
+  padding: 20px 10px;
   gap: 16px;
   min-height: 0;
 }
@@ -313,3 +313,44 @@ html, body {
 
 .ws-btn:active     { background: var(--pressed); }
 .ws-btn.disconnect { color: var(--p2); border-color: var(--p2); }
+
+/* ── Rotate prompt ── */
+#rotate-prompt {
+  display: none;
+}
+
+@media screen and (orientation: portrait) {
+  #rotate-prompt {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: 9999;
+    color: var(--text);
+  }
+
+  .rotate-icon {
+    font-size: 5rem;
+    animation: rotate-hint 1.4s ease-in-out infinite;
+    display: inline-block;
+  }
+
+  #rotate-prompt p {
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-family: 'Geist Mono', 'Geist_Mono', ui-monospace, monospace;
+  }
+
+  @keyframes rotate-hint {
+    0%   { transform: rotate(0deg); }
+    40%  { transform: rotate(90deg); }
+    60%  { transform: rotate(90deg); }
+    100% { transform: rotate(0deg); }
+  }
+}

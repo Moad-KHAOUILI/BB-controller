@@ -64,14 +64,23 @@ function showSelection() {
 
 // Control buttons
 document.querySelectorAll('.ctrl-btn').forEach(btn => {
-  btn.addEventListener('pointerdown', () => {
+  function press(e) {
+    e.preventDefault();
     btn.classList.add('pressed');
     const action = ACTION_MAP[btn.dataset.action];
     if (action) sendAction(action);
-  });
-  btn.addEventListener('pointerup',    () => btn.classList.remove('pressed'));
-  btn.addEventListener('pointercancel',() => btn.classList.remove('pressed'));
-  btn.addEventListener('pointerleave', () => btn.classList.remove('pressed'));
+  }
+  function release(e) {
+    if (e) e.preventDefault();
+    btn.classList.remove('pressed');
+  }
+  btn.addEventListener('touchstart',  press,   { passive: false });
+  btn.addEventListener('touchend',    release, { passive: false });
+  btn.addEventListener('touchcancel', release, { passive: false });
+  btn.addEventListener('mousedown',   press);
+  btn.addEventListener('mouseup',     release);
+  btn.addEventListener('mouseleave',  release);
+  btn.addEventListener('contextmenu', e => e.preventDefault());
 });
 
 p1Btn.addEventListener('click', () => showController(1));

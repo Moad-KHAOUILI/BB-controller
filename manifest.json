@@ -3,7 +3,7 @@
   "short_name": "BB Controller",
   "description": "Battle Bots Controller",
   "start_url": "./",
-  "display": "fullscreen",
+  "display": "standalone",
   "background_color": "#0d1b2e",
   "theme_color": "#0d1b2e",
   "orientation": "landscape",

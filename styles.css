@@ -303,17 +303,3 @@ html, body {
 
 .ws-btn:active     { background: var(--pressed); }
 .ws-btn.disconnect { color: var(--p2); border-color: var(--p2); }
-
-/* ── Force landscape on portrait devices ── */
-@media screen and (orientation: portrait) {
-  body {
-    position: fixed;
-    width: 100vh;
-    height: 100vw;
-    top: calc(50vh - 50vw);
-    left: calc(50vw - 50vh);
-    transform: rotate(90deg);
-    transform-origin: center center;
-    overflow: hidden;
-  }
-}

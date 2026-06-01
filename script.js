@@ -11,6 +11,7 @@ const p1Btn            = document.getElementById('p1-btn');
 const p2Btn            = document.getElementById('p2-btn');
 const backBtn          = document.getElementById('back-btn');
 const playerTag        = document.getElementById('player-tag');
+const hitBtn           = document.getElementById('hit-btn');
 
 const WS_URL = 'wss://team-01-en-backend-itip-en-01.apps.okd.ucll.cloud/ws';
 
@@ -37,8 +38,8 @@ function closeSocket() {
   }
 }
 
-function sendAction(action) {
-  const player = sessionStorage.getItem('player');
+function sendAction(action, playerOverride) {
+  const player = playerOverride || sessionStorage.getItem('player');
   const message = player + ':' + action;
   if (socket && socket.readyState === WebSocket.OPEN) {
     socket.send(message);
@@ -51,6 +52,7 @@ function sendAction(action) {
 function showController(playerNumber) {
   sessionStorage.setItem('player', playerNumber);
   playerTag.textContent = 'PLAYER ' + playerNumber;
+  hitBtn.hidden = playerNumber !== 1;
   selectionScreen.classList.remove('active');
   controllerScreen.classList.add('active');
   openSocket();
@@ -69,6 +71,14 @@ const allCtrlBtns = document.querySelectorAll('.ctrl-btn');
 
 function pressBtn(btn, e) {
   e.preventDefault();
+  if (btn.dataset.action === 'hit') {
+    if (activeBtn && activeBtn !== btn) {
+      activeBtn.classList.remove('pressed');
+      activeBtn = null;
+    }
+    sendAction('HAMMER', '1');
+    return;
+  }
   // Deactivate previously active button without sending STOP (new press overrides)
   if (activeBtn && activeBtn !== btn) {
     activeBtn.classList.remove('pressed');
@@ -76,7 +86,9 @@ function pressBtn(btn, e) {
   activeBtn = btn;
   btn.classList.add('pressed');
   const action = ACTION_MAP[btn.dataset.action];
-  if (action) sendAction(action);
+  if (action) {
+    sendAction(action, btn.dataset.action === 'hit' ? '1' : undefined);
+  }
 }
 
 function releaseBtn(btn, e) {

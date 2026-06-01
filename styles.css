@@ -211,6 +211,14 @@ html, body {
   width: 30vw;
 }
 
+.btn-group-side {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
 .btn-group-row {
   display: flex;
   flex-direction: row;
@@ -258,6 +266,12 @@ html, body {
   touch-action: none;
   flex: 1;
   height: 100%;
+}
+
+.hit-btn {
+  min-height: 20vw;
+  font-size: clamp(1rem, 2.8vw, 1.6rem);
+  letter-spacing: 0.2em;
 }
 .action-text {
   font-size: 0.6rem;
